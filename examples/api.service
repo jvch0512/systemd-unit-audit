@@ -1,0 +1,17 @@
+# Hardened service
+[Unit]
+Description=Internal API
+
+[Service]
+User=api
+ExecStart=/usr/local/bin/api \
+    --config /etc/api.toml
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

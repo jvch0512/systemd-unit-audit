@@ -1,0 +1,7 @@
+[Service]
+User=worker
+ExecStart=+/usr/local/bin/worker
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=read-only

@@ -1,0 +1,11 @@
+[Unit]
+Description=Customer portal
+
+[Service]
+ExecStart=/opt/portal/bin/portal --port 8080
+Environment="DB_PASSWORD=hunter2" LOG_LEVEL=info
+Restart=always
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_SYS_ADMIN
+
+[Install]
+WantedBy=multi-user.target

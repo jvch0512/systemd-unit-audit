@@ -1,0 +1,29 @@
+4 files, 14 findings
+HIGH     SYD006 updater.service:6
+         ExecStartPre starts /tmp/prepare.sh from a world-writable directory
+HIGH     SYD007 updater.service:7
+         ExecStart pipes a download into a shell
+HIGH     SYD001 web.service
+         no User= set: the service runs as root
+HIGH     SYD005 web.service:8
+         CapabilityBoundingSet keeps CAP_SYS_ADMIN
+MEDIUM   SYD010 sub/worker.service:3
+         ExecStart starts with +: it runs with full root privileges although User=worker is set
+MEDIUM   SYD001 updater.service:5
+         User=root: the service runs as root
+MEDIUM   SYD004 updater.service:8
+         ProtectSystem is not yes, full or strict: the service can write to /usr and /etc
+MEDIUM   SYD002 web.service
+         NoNewPrivileges is not yes: the process can gain privileges through setuid binaries
+MEDIUM   SYD004 web.service
+         ProtectSystem is not yes, full or strict: the service can write to /usr and /etc
+MEDIUM   SYD008 web.service:6
+         Environment sets DB_PASSWORD: use LoadCredential= or EnvironmentFile= with mode 0600
+LOW      SYD003 updater.service
+         PrivateTmp is not yes: the service shares /tmp with the rest of the system
+LOW      SYD009 updater.service
+         ProtectHome is not set: the service can read /home and /root
+LOW      SYD003 web.service
+         PrivateTmp is not yes: the service shares /tmp with the rest of the system
+LOW      SYD009 web.service
+         ProtectHome is not set: the service can read /home and /root
