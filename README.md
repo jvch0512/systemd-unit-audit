@@ -2,6 +2,8 @@
 
 systemd-unit-audit reads `.service` files (or a whole directory such as `/etc/systemd/system`) and reports what an attacker would gain from a compromised service: it runs as root, can gain privileges, shares `/tmp`, can write to the OS, holds `CAP_SYS_ADMIN`, starts a binary from a world-writable path or carries a password in `Environment=`. Each finding names the file and the line of the directive, or the file when a protection is missing.
 
+![Terminal demo of systemd-unit-audit on its sample data](docs/demo.svg)
+
 **Live demo:** https://jvch0512.github.io/systemd-unit-audit/ (Synthetic unit files.)
 
 Vala 0.56 (GLib only). The demo page is rendered from the tool's `--tsv` output by `scripts/site.py` (Python 3, only needed to regenerate the page).
@@ -51,3 +53,13 @@ make test    # A Vala test program: parsing, overrides, continuations, every rul
 ```
 
 MIT.
+
+## Code scanning (SARIF)
+
+`scripts/tsv2sarif.py` converts the `--tsv` output into SARIF 2.1.0, so findings show up in GitHub code scanning:
+
+```sh
+build/systemd-unit-audit examples --tsv | python3 scripts/tsv2sarif.py --tool systemd-unit-audit --prefix examples > results.sarif
+```
+
+Upload `results.sarif` with `github/codeql-action/upload-sarif`. Severities map to SARIF levels (critical and high to error, medium to warning, low and info to note) and to a `security-severity` score.
